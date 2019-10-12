@@ -2,6 +2,8 @@
 
 this tool is for image batch process for matchine learning | 此工具用于机器学习的图片批量处理
 
+this tool use easyimage, it need [imagemagick](https://imagemagick.org/) installed on your OS | 此工具依赖了easyimage，需要系统安装[imagemagick](https://imagemagick.org/)
+
 ## features
 
 - batch rename to numbers | 批量按序号命名
