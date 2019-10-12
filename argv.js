@@ -20,6 +20,11 @@ module.exports = require('yargs')
     alias: 'r',
     default: true
   })
+  .option('num-start', {
+    alias: 'n',
+    default: 1,
+    type: 'number'
+  })
   .demand(['input-folder'], 'please provide input folder')
   .help()
   .argv
