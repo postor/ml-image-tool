@@ -4,7 +4,8 @@
   "description": "this tool is for image batch process for matchine learning | 此工具用于机器学习的图片批量处理",
   "main": "index.js",
   "bin": {
-    "ml-image-tool": "./cli.js"
+    "ml-image-tool": "./cli.js",
+    "generate-empty-voc-xml": "./generate-empty-xml.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

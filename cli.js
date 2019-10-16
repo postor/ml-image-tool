@@ -28,10 +28,10 @@ const files = fs.readdirSync(argv["input-folder"])
 
   for (let i = 0; i < files.length; i++) {
     let imageName = files[i]
-    if (!isImage(imageName)) return
+    if (!isImage(imageName)) continue
 
     let ext = extname(imageName)
-    let targetName = argv["rename-files"] ? i + argv["num-start"] : imageName.trimRight(ext)
+    let targetName = argv["rename-files"] ? i + argv["num-start"] : imageName.substr(0, imageName.length - ext.length)
     let targetExt = argv["convert-jpg"] ? '.jpg' : ext
 
     let src = join(sourceFolder, imageName)
