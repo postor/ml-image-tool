@@ -1,11 +1,11 @@
 {
   "name": "ml-image-tool",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "this tool is for image batch process for matchine learning | 此工具用于机器学习的图片批量处理",
   "main": "index.js",
   "bin": {
     "ml-image-tool": "./cli.js",
-    "generate-empty-voc-xml": "./generate-empty-xml.js"
+    "generate-imageset-txt": "./generate-imageset-txt.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
