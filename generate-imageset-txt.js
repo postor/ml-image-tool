@@ -63,6 +63,7 @@ console.log('done!')
 
 
 function writeTxt(arr, dist) {
+  console.log(`writing ${dist} with ${arr.length} images`)
   fs.writeFileSync(dist, arr.join('\n'), { encoding: 'ascii' })
 }
 
@@ -72,6 +73,6 @@ function shuffle(array) {
     const temp = array[i]
     array[i] = array[j]
     array[j] = temp
-    return array
   }
+  return array
 }
