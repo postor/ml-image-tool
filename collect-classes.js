@@ -15,9 +15,7 @@ const argv = require('yargs')
   })
   .help()
   .argv
-
-const files = fs.readdirSync(argv["input-folder"])
-  ;
+  
 let sourceFolder = argv["input-folder"], emptyFolder = argv["move-empty"]
 if (!isAbsolute(sourceFolder)) {
   sourceFolder = join(process.cwd(), sourceFolder)
@@ -29,6 +27,7 @@ if (emptyFolder) {
   fs.ensureDir(emptyFolder)
 }
 
+const files = fs.readdirSync(argv["input-folder"])
 let all = new Set()
 
 for (let i = 0; i < files.length; i++) {

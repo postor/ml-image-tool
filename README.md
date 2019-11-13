@@ -14,7 +14,7 @@ this tool use easyimage, it need [imagemagick](https://imagemagick.org/) install
 
 ```
 npm i ml-image-tool -g
-ml-image-tool -i folder
+ml-image-tool -i imagefolder [-o outputfolder]
 
 # ml-image-tool --help
 ```

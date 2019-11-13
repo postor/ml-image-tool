@@ -13,14 +13,24 @@ const argv = require('yargs')
     alias: 'x',
     default: 'Annotations'
   })
+  .option('move-not-paired', {
+    alias: 'm',
+    default: ''
+  })
   .help()
   .argv
-let imageFolder = argv["image-folder"], xmlFolder = argv["xml-folder"]
+let imageFolder = argv["image-folder"], xmlFolder = argv["xml-folder"], moveFolder = argv["move-not-paired"]
 if (!isAbsolute(imageFolder)) {
   imageFolder = join(process.cwd(), imageFolder)
 }
 if (!isAbsolute(xmlFolder)) {
   xmlFolder = join(process.cwd(), xmlFolder)
+}
+if (moveFolder) {
+  if (!isAbsolute(moveFolder)) {
+    moveFolder = join(process.cwd(), moveFolder)
+  }
+  fs.ensureDir(moveFolder)
 }
 
 Set.prototype.difference = function (otherSet) {
@@ -32,18 +42,32 @@ Set.prototype.difference = function (otherSet) {
     // if the value[i] is not present  
     // in otherSet add to the differenceSet 
     if (!otherSet.has(elem))
-      differenceSet.add(elem);
+      differenceSet.add(elem)
   }
 
   // returns values of differenceSet 
-  return differenceSet;
+  return differenceSet
 }
 
 const images = new Set(fs.readdirSync(imageFolder).map(x => basename(x, '.jpg')))
 const xmls = new Set(fs.readdirSync(xmlFolder).map(x => basename(x, '.xml')))
 
-let noImage = [...images.difference(xmls)]
+let noImage = [...xmls.difference(images)]
 console.log(`image exists but not xml: ${noImage.join(',')}`)
 
-let noXml = [...xmls.difference(images)]
+if (moveFolder) {
+  noImage.forEach(x => {
+    fs.moveSync(join(xmlFolder, `${x}.xml`), join(moveFolder, `${x}.xml`))
+  })
+  console.log(`moved ${noImage.length} xmls to ${moveFolder}`)
+}
+
+let noXml = [...images.difference(xmls)]
 console.log(`xml exists but not image: ${noXml.join(',')}`)
+
+if (moveFolder) {
+  noXml.forEach(x => {
+    fs.moveSync(join(imageFolder, `${x}.jpg`), join(moveFolder, `${x}.jpg`))
+  })
+  console.log(`moved ${noXml.length} jpgs to ${moveFolder}`)
+}
