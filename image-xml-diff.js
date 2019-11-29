@@ -49,8 +49,8 @@ Set.prototype.difference = function (otherSet) {
   return differenceSet
 }
 
-const images = new Set(fs.readdirSync(imageFolder).map(x => basename(x, '.jpg')))
-const xmls = new Set(fs.readdirSync(xmlFolder).map(x => basename(x, '.xml')))
+const images = new Set(fs.readdirSync(imageFolder).filter(x => x.endsWith('.jpg')).map(x => basename(x, '.jpg')))
+const xmls = new Set(fs.readdirSync(xmlFolder).filter(x => x.endsWith('.xml')).map(x => basename(x, '.xml')))
 
 let noImage = [...xmls.difference(images)]
 console.log(`image exists but not xml: ${noImage.join(',')}`)
