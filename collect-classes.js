@@ -2,6 +2,8 @@
 const fs = require('fs-extra')
 const { basename, dirname, isAbsolute, join, extname } = require('path')
 const { parseString } = require('xml2js')
+const Counter = require('./Counter')
+
 const argv = require('yargs')
   .scriptName("collect-classes")
   .usage('$0 [args]')
@@ -13,9 +15,13 @@ const argv = require('yargs')
     alias: 'm',
     default: ''
   })
+  .option('find', {
+    alias: 'f',
+    default: ''
+  })
   .help()
   .argv
-  
+
 let sourceFolder = argv["input-folder"], emptyFolder = argv["move-empty"]
 if (!isAbsolute(sourceFolder)) {
   sourceFolder = join(process.cwd(), sourceFolder)
@@ -28,7 +34,7 @@ if (emptyFolder) {
 }
 
 const files = fs.readdirSync(argv["input-folder"])
-let all = new Set()
+let all = new Counter()
 
 for (let i = 0; i < files.length; i++) {
   let xmlName = files[i]
@@ -48,6 +54,9 @@ for (let i = 0; i < files.length; i++) {
       }
       xml.annotation.object.forEach(({ name }) => {
         all.add(name[0])
+        if (name[0] === argv.find) {
+          console.log(`found "${argv.find}" in ${xmlName}`)
+        }
       })
 
     } catch (e) {
@@ -57,5 +66,7 @@ for (let i = 0; i < files.length; i++) {
   })
 }
 
-console.log(all)
+console.log(all.get())
+console.log(Object.keys(all.get()))
+
 
