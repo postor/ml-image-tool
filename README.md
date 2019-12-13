@@ -80,6 +80,7 @@ Options:
   --help              Show help                                        [boolean]
 ```
 
+
 ## how do I use them | 个人使用方法
 
 1. download pictures with https://github.com/hardikvasa/google-images-download | 批量下载谷歌搜索的图片
