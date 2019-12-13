@@ -3,24 +3,32 @@ const fs = require('fs-extra')
 const { basename, dirname, isAbsolute, join, extname } = require('path')
 const isImage = require('is-image')
 const argv = require('yargs')
-  .scriptName("generate-imageset-txt")
+  .scriptName("ml-generate-imageset-txt")
   .usage('$0 [args]')
   .option('input-folder', {
     alias: 'i',
-    default: '.'
+    default: '.',
+    desc: 'folder with images'
   })
   .option('output-folder', {
     alias: 'o',
-    default: '.'
+    default: '.',
+    desc: 'generate txt files into'
   })
   .option('train', {
-    default: 0.7
+    default: 0.7,
+    type: 'number',
+    desc: 'percentage of the whole used for train (train.txt)'
   })
   .option('val', {
-    default: 0.2
+    default: 0.2,
+    type: 'number',
+    desc: 'percentage of the whole used for train (val.txt)'
   })
   .option('random', {
-    default: true
+    default: true,
+    type: 'boolean',
+    desc: 'random the orders'
   })
   .help()
   .argv
@@ -52,9 +60,9 @@ if (argv.random) {
 }
 
 writeTxt(all, join(targetFolder, 'all.txt'))
-let trainEnd = Math.floor(all.length * argv.train)
+let trainEnd = Math.round(all.length * argv.train)
 writeTxt(all.slice(0, trainEnd), join(targetFolder, 'train.txt'))
-let trainvalEnd = Math.floor(all.length * (argv.train + argv.val))
+let trainvalEnd = Math.round(all.length * (argv.train + argv.val))
 writeTxt(all.slice(trainEnd, trainvalEnd), join(targetFolder, 'val.txt'))
 writeTxt(all.slice(0, trainvalEnd), join(targetFolder, 'trainval.txt'))
 writeTxt(all.slice(trainvalEnd), join(targetFolder, 'test.txt'))

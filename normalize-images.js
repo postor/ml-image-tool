@@ -3,7 +3,7 @@ const { join, extname, isAbsolute } = require('path')
 const fs = require('fs-extra')
 const argv = require('./argv')
 const isImage = require('is-image')
-const { resize, convert, getImageMagickVersion, info } = require('easyimage')
+const { resize, getImageMagickVersion } = require('easyimage')
 
 if (!fs.existsSync(argv["input-folder"])) {
   console.log('in folder is not valid!')

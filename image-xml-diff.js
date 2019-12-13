@@ -3,19 +3,22 @@ const fs = require('fs-extra')
 const { basename, dirname, isAbsolute, join, extname } = require('path')
 const { parseString } = require('xml2js')
 const argv = require('yargs')
-  .scriptName("collect-classes")
+  .scriptName("ml-image-xml-diff")
   .usage('$0 [args]')
   .option('image-folder', {
     alias: 'i',
-    default: 'JPEGImages'
+    default: 'JPEGImages',
+    desc: 'folder with images'
   })
   .option('xml-folder', {
     alias: 'x',
-    default: 'Annotations'
+    default: 'Annotations',
+    desc: 'folder with xmls'
   })
   .option('move-not-paired', {
     alias: 'm',
-    default: ''
+    default: '',
+    desc: 'move not paired files into specified folder'
   })
   .help()
   .argv

@@ -1,23 +1,26 @@
 #!/usr/bin/env node
 const fs = require('fs-extra')
-const { basename, dirname, isAbsolute, join, extname } = require('path')
+const { isAbsolute, join } = require('path')
 const { parseString } = require('xml2js')
 const Counter = require('./Counter')
 
 const argv = require('yargs')
-  .scriptName("collect-classes")
+  .scriptName("ml-collect-classes")
   .usage('$0 [args]')
   .option('input-folder', {
     alias: 'i',
-    default: '.'
+    default: '.',
+    desc: 'folder with xml annotation files'
   })
   .option('move-empty', {
     alias: 'm',
-    default: ''
+    default: '',
+    desc: 'move xmls without label into specified folder'
   })
   .option('find', {
     alias: 'f',
-    default: ''
+    default: '',
+    desc: 'find images with specified label'
   })
   .help()
   .argv
